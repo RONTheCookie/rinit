@@ -9,7 +9,7 @@ import (
 // Remount a filesystem. Grub mounts / as ro during the boot process, and this will get it to
 // be readwrite (assuming it's rw in /etc/fstab)
 func Remount(dir string) {
-	if err := run("mount", "-o", "remount", dir); err != nil {
+	if err := run("/usr/bin/mount", "-o", "remount", dir); err != nil {
 		log.Println(err)
 	}
 }
@@ -22,7 +22,7 @@ func Mount(typ, device, dir, opts string) {
 			return
 		}
 	}
-	if err := run("mount", "-t", typ, device, dir, "-o", opts); err != nil {
+	if err := run("/usr/bin/mount", "-t", typ, device, dir, "-o", opts); err != nil {
 		log.Println(err)
 	}
 }
@@ -34,7 +34,7 @@ func MountAllExcept(except []string) {
 	for i, val := range except {
 		noexcept[i] = "no" + val
 	}
-	if err := run("mount", "-a", "-t", strings.Join(noexcept, ","), "-O", "no_netdev"); err != nil {
+	if err := run("/usr/bin/mount", "-a", "-t", strings.Join(noexcept, ","), "-O", "no_netdev"); err != nil {
 		log.Println(err)
 	}
 }
@@ -46,7 +46,7 @@ func UnmountAllExcept(except []string) {
 	for i, val := range except {
 		noexcept[i] = "no" + val
 	}
-	if err := run("umount", "-a", "-t", strings.Join(noexcept, ","), "-O", "no_netdev"); err != nil {
+	if err := run("/usr/bin/umount", "-a", "-t", strings.Join(noexcept, ","), "-O", "no_netdev"); err != nil {
 		log.Println(err)
 	}
 }

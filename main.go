@@ -45,6 +45,10 @@ func SetHostname(hostname []byte) {
 }
 
 func main() {
+	// Use /etc/profile to get a simple $PATH
+	// run("/etc/profile")
+	// TODO: figure out if we need ^ and do something bout it
+
 	// Remount root as rw.
 	//
 	// This should be handled by mount -a according to mount(8), since the flags that

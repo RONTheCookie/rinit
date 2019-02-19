@@ -88,14 +88,16 @@ func (s *Service) Start() error {
 	if s.state != notStarted {
 		return fmt.Errorf("Service %v is %v", s.Name, s.state.String())
 	}
+	fmt.Println("Starting service", s.Name)
 	s.state = starting
-	cmd := exec.Command("sh", "-c", s.Startup.String())
+	cmd := exec.Command("/usr/bin/sh", "-c", s.Startup.String())
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		s.state = errored
 		return err
 	}
 	s.state = started
+	fmt.Println("Started service", s.Name)
 	return nil
 }
 

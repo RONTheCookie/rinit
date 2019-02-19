@@ -60,9 +60,9 @@ func Gettys(autologins []string, persist bool) {
 func getty(autologin, tty string) error {
 	var cmd *exec.Cmd
 	if autologin != "" {
-		cmd = exec.Command("getty", "--noclear", tty, "--autologin", autologin)
+		cmd = exec.Command("/usr/bin/agetty", "--noclear", tty, "--autologin", autologin)
 	} else {
-		cmd = exec.Command("getty", "--noclear", tty)
+		cmd = exec.Command("/usr/bin/agetty", "--noclear", tty)
 	}
 
 	// If we don't Setsid, we'll get an "inappropriate ioctl for device"
